@@ -8,5 +8,5 @@ Kattluckan har också flera olika funktioner. Den har en batterinivåsensor som 
 För att utveckla detta projekt använder jag PlatformIO, en kraftfull open-source utvecklingsmiljö som stöder flera olika plattformar och ramverk, inklusive ESP32 och Arduino. PlatformIO ger mig möjlighet att skriva, kompilera, ladda upp och testa min kod på ett effektivt och organiserat sätt.
 
 Jag utför också enhetstester för att säkerställa att min kod fungerar som förväntat. 
-Tyvärr lyckas jag inte helt att få enhetstesterna att fungera helt som planerat vilket är ett work in progress. 
+Tyvärr lyckas jag inte helt att få enhetstesterna att fungera helt som planerat eftersom att koden forfarande är starkt hårdvaruberoende och att jag saknar en MFRC522-rfid läsare hemma. 
 
