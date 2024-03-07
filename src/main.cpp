@@ -10,6 +10,7 @@ const char *ntpServer = "pool.ntp.org";
 const long gmtOffset_sec = 3600;
 const int daylightOffset_sec = 0;
 
+// Kattluckan är låst mellan 22-06:00
 const int LOCK_START_HOUR = 22;
 const int LOCK_END_HOUR = 6;
 
@@ -25,21 +26,21 @@ void setup()
     {
         if (millis() - startTime > 1000)
         {
-            Serial.println("Failed to connect to wifi, retrying");
+            Serial.println("Misslyckades med att koppla upp till WIFI");
             startTime = millis();
         }
         delay(1000);
         Serial.print(".");
     }
     Serial.println("");
-    Serial.println("Wifi is connected");
+    Serial.println("Ansluten till WIFI");
 
     // Konfigurerar tiden från NTP 
     configTime(gmtOffset_sec, daylightOffset_sec, ntpServer);
 
-    initializeCatFlap(rfidReader, ledControl); // Pass the pointers to initializeCatFlap
+    initializeCatFlap(rfidReader, ledControl); 
 }
-
+// Funktion för att få den aktuella tiden
 int getCurrentHour()
 {
     if (testHour != -1)
@@ -50,15 +51,15 @@ int getCurrentHour()
     struct tm timeinfo;
     if (!getLocalTime(&timeinfo))
     {
-        Serial.println("Failed to get the current time");
+        Serial.println("Misslyckades med att kolla tiden");
         return -1;
     }
     return timeinfo.tm_hour;
 }
-
+// Så kattluckan förblir stängd mellan 06-22:00 då den ska vara låst. 
 void loop()
 {
-    catFlapTask(NULL);  // Call catFlapTask instead of the previous code
+    catFlapTask(NULL);  
 
     int currentHour = getCurrentHour();
     if ((currentHour >= LOCK_START_HOUR && currentHour < LOCK_END_HOUR))
