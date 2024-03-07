@@ -7,7 +7,7 @@
 
 MFRC522 mfrc522(SS_PIN, RST_PIN);
 
-MFRC522RFIDReader::MFRC522RFIDReader() {}  // Removed : mfrc522(SS_PIN, RST_PIN)
+MFRC522RFIDReader::MFRC522RFIDReader() {}  
 
 void MFRC522RFIDReader::initialize() {
     SPI.begin();
@@ -32,7 +32,7 @@ int MFRC522RFIDReader::readData(char *data, int bufferSize) {
         }
         data [dataSize] = '\0';
 
-        // Print the RFID data for testing
+        // Skriver ut RFID data för testning
         Serial.print("RFID data: ");
         for (byte i = 0; i < dataSize; i++)
         {
