@@ -36,3 +36,24 @@ void LEDControl::checkRed() {
         turnOffRed();
     }
 }
+
+void LEDControl::turnOffRed() {
+    digitalWrite(RED_PIN, LOW);
+}
+
+void LEDControl::turnOnYellow() {
+    digitalWrite(YELLOW_PIN, HIGH);
+    Serial.println("Gul LED lyser, kolla batterinivån");
+    yellowStartTime = millis();
+}
+
+void LEDControl::checkYellow() {
+    if (millis() - yellowStartTime >= 5000) {
+        turnOffYellow();
+    }
+}
+
+void LEDControl::turnOffYellow() {
+    digitalWrite(YELLOW_PIN, LOW);
+    Serial.println("Gula LED har släckts och batterinivån är OK");
+}
