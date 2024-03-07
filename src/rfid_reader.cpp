@@ -36,14 +36,14 @@ int MFRC522RFIDReader::readData(char *data, int bufferSize) {
         Serial.print("RFID data: ");
         for (byte i = 0; i < dataSize; i++)
         {
-            Serial.print(data[i], HEX);
+            Serial.print(data[i], HEX);  // Skriver ut data i Hexadecimal form 
             Serial.print(" ");
         }
         Serial.println();
 
         mfrc522.PICC_HaltA();
 
-        return dataSize;
+        return dataSize;  // Returnerar storleken på läst data 
     }
     return 0;
 }
