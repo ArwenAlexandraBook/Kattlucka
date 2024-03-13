@@ -1,23 +1,19 @@
+#include <Arduino.h>
 #include "rfid_reader.h"
 #include "MFRC522.h"
 #include "SPI.h"
 
-#define SS_PIN 5
-#define RST_PIN 0
-
-MFRC522 mfrc522(SS_PIN, RST_PIN);
-
-MFRC522RFIDReader::MFRC522RFIDReader() {}  
+MFRC522RFIDReader::MFRC522RFIDReader(MFRC522& mfrc522) : mfrc522(mfrc522) {}
 
 void MFRC522RFIDReader::initialize() {
     SPI.begin();
     mfrc522.PCD_Init();
-    Serial.begin(115200);
+    // Serial.begin(115200);
 }
 
 int MFRC522RFIDReader::readData(char *data, int bufferSize) {
     if (data == NULL || bufferSize <= 0) {
-        Serial.println("Invalid buffer");
+        Serial.println("Ogiltlig buffer");
         return 0;
     }
     if (mfrc522.PICC_IsNewCardPresent() && mfrc522.PICC_ReadCardSerial())
@@ -32,18 +28,18 @@ int MFRC522RFIDReader::readData(char *data, int bufferSize) {
         }
         data [dataSize] = '\0';
 
-        // Skriver ut RFID data för testning
+        // Skriver ut RFID-data för testing
         Serial.print("RFID data: ");
         for (byte i = 0; i < dataSize; i++)
         {
-            Serial.print(data[i], HEX);  // Skriver ut data i Hexadecimal form 
+            Serial.print(data[i], HEX);
             Serial.print(" ");
         }
         Serial.println();
 
         mfrc522.PICC_HaltA();
 
-        return dataSize;  // Returnerar storleken på läst data 
+        return dataSize;
     }
     return 0;
 }
