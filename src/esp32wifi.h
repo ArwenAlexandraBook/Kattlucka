@@ -3,7 +3,7 @@
 
 #include <WiFi.h>
 
-static const char* WIFI_SSID = "ENTER your ssid here";
-static const char* WIFI_PASSWORD = "Enter your password here";
+static const char* WIFI_SSID = "Skriv in ditt ssid här";
+static const char* WIFI_PASSWORD = "Skriv in ditt lösenord här";
 
 #endif
