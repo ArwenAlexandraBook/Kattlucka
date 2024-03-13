@@ -12,8 +12,8 @@ time_t flapOpenTime = 0L;
 
 extern int testHour;
 
-RFIDReader* rfidReader;  // Changed to pointer type
-LEDControl* ledControl;  // Changed to pointer type
+RFIDReader* rfidReader;  
+LEDControl* ledControl;  
 
 void initializeCatFlap(RFIDReader* reader, LEDControl* leds) {
     rfidReader = reader;
@@ -21,7 +21,7 @@ void initializeCatFlap(RFIDReader* reader, LEDControl* leds) {
 
     Serial.begin(9600);
     while (!Serial) {
-        ; // wait for serial port to connect. Needed for native USB port only
+        ; 
     }
 
     srand(time(NULL));
@@ -41,7 +41,7 @@ void catFlapTask(void *pvParameters) {
     }
     else
     {
-        Serial.println("Failed to read RFID data");
+        Serial.println("Misslyckades att läsa RFID data");
     }
 
     lowBatterySensor();
@@ -51,7 +51,7 @@ void catFlapTask(void *pvParameters) {
 
 void openCatFlap()
 {
-    Serial.println("Opening catflap");
+    Serial.println("Öppnar kattluckan");
     ledControl->turnOnGreen();
     flapOpenTime = time(NULL);
 }
@@ -63,7 +63,7 @@ bool isCatFlapOpen()
 
 void closeCatFlap()
 {
-    Serial.println("Closing cat flap");
+    Serial.println("Stänger kattluckan");
     ledControl->turnOffGreen();
     flapOpenTime = 0L;
 }
@@ -99,10 +99,10 @@ void processCatChip(const char *catID)
 
 int readBatteryLevel()
 {
-    return rand() % 101; // Modified this line
+    return rand() % 101; 
 }
 
-void lowBatterySensor()
+void lowBatterySensor()  // Funktion för att se över batterinivån värdet ovan är för testningssyfte.
 {
     int batteryLevel = readBatteryLevel();
     if (batteryLevel < 10)
@@ -129,7 +129,7 @@ void checkAutoClose()
     }
     else
     {
-        Serial.println("The catflap closed like it should");
+        Serial.println("Kattluckan är stängd");
     }
 }
 
@@ -164,19 +164,19 @@ void userAddCat()
         }
         else
         {
-            Serial.println("Sorry failed to read the new cat ID");
+            Serial.println("Misslyckades med att lägga till nytt ID");
         }
     }
     else
     {
-        Serial.println("Not in the add cat mode");
+        Serial.println("Inte i add cat mode");
     }
 }
 
 void enterAddCatMode()
 {
     addCatMode = true;
-    Serial.println("In the add cat mode. Please scan the cat's RFiD tag to add it to the system");
+    Serial.println("I add cat mode. Snälla scanna kattens RFID-tag för att lägga till den");
 }
 
 void resetCatFlap()
