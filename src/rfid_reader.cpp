@@ -4,18 +4,19 @@
 #include "SPI.h"
 
 MFRC522RFIDReader::MFRC522RFIDReader(MFRC522& mfrc522) : mfrc522(mfrc522) {}
-
+// Startar SPI kommunikationen och intialiserar MFRC522-modulen
 void MFRC522RFIDReader::initialize() {
     SPI.begin();
     mfrc522.PCD_Init();
     // Serial.begin(115200);
 }
-
+// Funktion som läser data från RFID-taggen.
 int MFRC522RFIDReader::readData(char *data, int bufferSize) {
     if (data == NULL || bufferSize <= 0) {
         Serial.println("Ogiltlig buffer");
         return 0;
     }
+    // Kontrollerar om det finns en ny RFID-tag och om den kan läsas
     if (mfrc522.PICC_IsNewCardPresent() && mfrc522.PICC_ReadCardSerial())
     {
         int dataSize = mfrc522.uid.size;  // Hämtar storleken på RFID-data
